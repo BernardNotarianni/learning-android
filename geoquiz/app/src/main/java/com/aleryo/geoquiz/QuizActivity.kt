@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
 import android.view.View
+import android.widget.ImageButton
 import android.widget.Toast
 import android.widget.TextView
 import com.aleryo.geoquiz.R.id.question_text_view
@@ -15,8 +16,8 @@ class QuizActivity : AppCompatActivity() {
 
     private var mTrueButton: Button? = null
     private var mFalseButton: Button? = null
-    private var mPrevButton: Button? = null
-    private var mNextButton: Button? = null
+    private var mPrevButton: ImageButton? = null
+    private var mNextButton: ImageButton? = null
     private var mQuestionTextView: TextView? = null
 
     private val mQuestionBank = arrayOf(Question(R.string.question_oceans, true), Question(R.string.question_mideast, false), Question(R.string.question_africa, false), Question(R.string.question_americas, true), Question(R.string.question_asia, true))
@@ -56,7 +57,7 @@ class QuizActivity : AppCompatActivity() {
             checkAnswer(false)
         })
 
-        mPrevButton = findViewById<View>(R.id.prev_button) as Button
+        mPrevButton = findViewById<View>(R.id.prev_button) as ImageButton
         mPrevButton!!.setOnClickListener({
             mCurrentIndex = (mCurrentIndex-1).rem(mQuestionBank.size)
             if (mCurrentIndex < 0) mCurrentIndex += mQuestionBank.size
@@ -64,7 +65,7 @@ class QuizActivity : AppCompatActivity() {
             mQuestionTextView!!.setText(question)
         })
 
-        mNextButton = findViewById<View>(R.id.next_button) as Button
+        mNextButton = findViewById<View>(R.id.next_button) as ImageButton
         mNextButton!!.setOnClickListener({
             mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.size
             val question = mQuestionBank[mCurrentIndex].mTextResId
