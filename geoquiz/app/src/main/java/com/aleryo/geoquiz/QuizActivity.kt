@@ -1,7 +1,9 @@
 package com.aleryo.geoquiz
 
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
@@ -13,6 +15,9 @@ import com.aleryo.geoquiz.R.id.question_text_view
 
 
 class QuizActivity : AppCompatActivity() {
+
+    private val TAG = "QuizActivity"
+    private val KEY_INDEX = "index"
 
     private var mTrueButton: Button? = null
     private var mFalseButton: Button? = null
@@ -39,8 +44,10 @@ class QuizActivity : AppCompatActivity() {
         Toast.makeText(this, messageResId, Toast.LENGTH_SHORT)
                 .show()
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d(TAG, "onCreate(Bundle) called");
         setContentView(R.layout.activity_quiz)
 
         mQuestionTextView = findViewById<View>(question_text_view) as TextView
@@ -72,6 +79,9 @@ class QuizActivity : AppCompatActivity() {
             mQuestionTextView!!.setText(question)
         })
 
+        if(savedInstanceState != null) {
+            mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0)
+        }
         updateQuestion()
         /*
         setSupportActionBar(toolbar)
@@ -81,6 +91,12 @@ class QuizActivity : AppCompatActivity() {
                     .setAction("Action", null).show()
         }
         */
+    }
+
+    override fun onSaveInstanceState(savedInstanceState: Bundle?) {
+        super.onSaveInstanceState(savedInstanceState)
+        Log.d(TAG, "onSaveInstanceState")
+        savedInstanceState?.putInt(KEY_INDEX, mCurrentIndex)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -98,4 +114,31 @@ class QuizActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d(TAG, "onStart() called")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "onResume() called")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG, "onPause() called")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG, "onStop() called")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(TAG, "onDestroy() called")
+    }
+
+
 }
